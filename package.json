@@ -1,7 +1,7 @@
 {
   "name": "webpack-html-scss-boilerplate",
   "version": "0.1.0",
-  "description": "Pug plugin for webpack compiles Pug files to HTML, extracts CSS and JS from their sources specified in Pug.",
+  "description": "Webpack boilerplate for multipage sites using HTML, SCSS, JS",
   "keywords": [
     "webpack",
     "boilerplate",
@@ -44,7 +44,6 @@
     "cssnano": "^5.1.14",
     "html-bundler-webpack-plugin": "^0.3.0",
     "http-server": "^14.1.1",
-    "gh-pages": "^4.0.0",
     "material-icons": "^1.13.1",
     "material-symbols": "^0.4.2",
     "normalize.css": "^8.0.1",
