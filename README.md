@@ -1,5 +1,6 @@
 # Webpack boilerplate
 A simple multipage Webpack boilerplate using HTML, SCSS, JS.
+See the [demo site](https://webdiscus.github.io/webpack-html-scss-boilerplate/index.html).
 
 ## Installation
 
