@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <title>Home</title>
+
+  <!-- load source favicon via Webpack alias '@images' -->
+  <link href="@images/favicon.png" rel="icon" type="image/png">
+
+  <!-- load source style from local directory -->
+  <link href="./style.scss" rel="stylesheet">
+
+  <!-- load global source script via Webpack alias '@scripts' -->
+  <script src="@scripts/common.js" defer="defer"></script>
+
+  <!-- load source script from local directory -->
+  <script src="./home.js" defer="defer"></script>
+</head>
+<body>
+<!-- Header -->
+<div class="header-container">
+  <div class="header-content">
+    <a class="header-left" href="index.html">
+      <img class="app-logo" src="@images/app-logo.svg"><span>App demo</span>
+    </a>
+    <div class="header-middle">
+      <a href="index.html">Home</a>
+      <a href="demo.html">Demo</a>
+      <a href="about.html">About</a>
+      <a href="404.html">404</a>
+    </div>
+    <div class="header-right"></div>
+  </div>
+</div>
+
+<!-- Main content -->
+<main class="main-container">
+  <div class="main-content">
+    <section>
+      <div class="container flex-column center-x">
+        <h1>Home</h1>
+        <div class="teaser">Simple multipage boilerplate using HTML, SCSS, JS.</div>
+        <img class="home-image" src="@images/dolphin.jpg">
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- Footer -->
+<div class="footer-container">
+  <div class="footer-content">
+    Copyleft <span class="copyleft"></span> 2023 <a href="https://github.com/webdiscus">@webdiscus</a>
+  </div>
+</div>
+</body>
+</html>
