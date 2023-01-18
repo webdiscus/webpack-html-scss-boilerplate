@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <title>Demo</title>
+
+  <!-- load source favicon via Webpack alias '@images' -->
+  <link href="data:image/svg+xml,<svg viewBox='0 0 1200 1200' xmlns='http://www.w3.org/2000/svg'><path d='m600 0 530.3 300v600l-530.3 300-530.3-300v-600z' fill='%23fff'/><path d='m1035.6 879.3-418.1 236.5v-184.2l260.5-143.3zm28.6-25.9v-494.6l-153 88.3v317.9zm-901.5 25.9 418.1 236.5v-184.2l-260.5-143.3zm-28.6-25.9v-494.6l153 88.3v317.9zm17.9-526.6 428.8-242.6v178.1l-274.7 151.1-2.1 1.2zm894.3 0-428.8-242.6v178.1l274.7 151.1 2.1 1.2z' fill='%238ed6fb'/><path d='m580.8 889.7-257-141.3v-280l257 148.4zm36.7 0 257-141.3v-280l-257 148.4zm-276.3-453.7 258-141.9 258 141.9-258 149z' fill='%231c78c0'/></svg>" rel="icon" type='image/svg'>
+
+  <!-- load source style from local directory -->
+  <link href="assets/css/style.bdb38531.css" rel="stylesheet">
+
+  <!-- load source script from local directory -->
+  <script src="assets/js/demo.1.ddc7c362.js" defer="defer"></script>
+</head>
+<body>
+<!-- Header -->
+<div class="header-container">
+  <div class="header-content">
+    <a class="header-left" href="index.html">
+     <img class="app-logo" src="assets/img/app-logo.52c7ee6a.svg"><span>App demo</span>
+    </a>
+    <div class="header-middle">
+      <a href="index.html">Home</a>
+      <a href="demo.html">Demo</a>
+      <a href="about.html">About</a>
+      <a href="404.html">404</a>
+    </div>
+    <div class="header-right"></div>
+  </div>
+</div>
+
+<!-- Main content -->
+<main class="main-container">
+  <div class="main-content">
+    <section>
+      <div class="container flex-column center-x">
+        <h1>Demo</h1>
+        <div class="teaser">
+          This is demonstration how to load icons, file and inline images in HTML.
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container flex-column center-x">
+        <h2>Load image as file by size > 1K</h2>
+        <div class="teaser">
+          The image is loaded as file.
+        </div>
+        <!-- load as file: @images/dolphin.jpg -->
+        <img class="image" src="assets/img/dolphin.f78b30f4.jpg" alt="dolphin">
+      </div>
+    </section>
+
+    <section>
+      <div class="container flex-column center-x">
+        <h2>Inline image by size <= 1K</h2>
+        <div class="teaser">
+          The SVG image is inlined as SVG tag.
+        </div>
+        <!-- inline by size: @images/icons/webpack.svg-->
+        
+<!-- inline: webpack.svg -->
+<svg viewBox="0 0 1200 1200" class="image"><title>webpack</title><path d="m600 0 530.3 300v600l-530.3 300-530.3-300v-600z" fill="#fff"/><path d="m1035.6 879.3-418.1 236.5v-184.2l260.5-143.3zm28.6-25.9v-494.6l-153 88.3v317.9zm-901.5 25.9 418.1 236.5v-184.2l-260.5-143.3zm-28.6-25.9v-494.6l153 88.3v317.9zm17.9-526.6 428.8-242.6v178.1l-274.7 151.1-2.1 1.2zm894.3 0-428.8-242.6v178.1l274.7 151.1 2.1 1.2z" fill="#8ed6fb"/><path d="m580.8 889.7-257-141.3v-280l257 148.4zm36.7 0 257-141.3v-280l-257 148.4zm-276.3-453.7 258-141.9 258 141.9-258 149z" fill="#1c78c0"/></svg>
+
+      </div>
+    </section>
+
+    <section>
+      <div class="container flex-column center-x">
+        <h2>Inline image using "?inline" query</h2>
+        <div class="teaser">
+          The PNG image is inlined as data-URL.
+        </div>
+        <!-- inline using query: @images/icons/webicon-mac.png?inline -->
+        <img class="image" src="data:image/png;base64,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" alt="mac">
+      </div>
+    </section>
+
+    <section>
+      <div class="container flex-column center-x">
+        <h2>Icons</h2>
+        <div class="teaser">
+          Example of Material Symbols
+        </div>
+
+        <div class="icon-list">
+          <div class="icon-item">
+            <div class="mat-symbol">home</div>
+            <div class="caption">home</div>
+          </div>
+          <div class="icon-item">
+            <div class="mat-symbol">search</div>
+            <div class="caption">search</div>
+          </div>
+          <div class="icon-item">
+            <div class="mat-symbol">menu</div>
+            <div class="caption">menu</div>
+          </div>
+          <div class="icon-item">
+            <div class="mat-symbol">settings</div>
+            <div class="caption">settings</div>
+          </div>
+          <div class="icon-item">
+            <div class="mat-symbol">language</div>
+            <div class="caption">language</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- Footer -->
+<div class="footer-container">
+  <div class="footer-content">
+    Copyleft <span class="copyleft"></span> 2023 <a href="https://github.com/webdiscus">@webdiscus</a>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,1 @@
+{"version":3,"file":"assets/js/common.f3610b3a.js","mappings":"AAAAA,QAAQC,IAAI","sources":["webpack://webpack-html-scss-boilerplate/./src/assets/scripts/common.js"],"sourcesContent":["console.log('>> Common script is loaded.');\n"],"names":["console","log"],"sourceRoot":""}

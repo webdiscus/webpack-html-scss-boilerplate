@@ -1,0 +1,1 @@
+{"version":3,"file":"assets/js/about.1.a2466d28.js","mappings":"AAAAA,QAAQC,IAAI","sources":["webpack://webpack-html-scss-boilerplate/./src/views/about/about.js"],"sourcesContent":["console.log('>> About');\n"],"names":["console","log"],"sourceRoot":""}

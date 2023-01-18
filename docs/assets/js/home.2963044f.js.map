@@ -1,0 +1,1 @@
+{"version":3,"file":"assets/js/home.2963044f.js","mappings":"AAAAA,QAAQC,IAAI","sources":["webpack://webpack-html-scss-boilerplate/./src/views/home/home.js"],"sourcesContent":["console.log('>> Home');\n"],"names":["console","log"],"sourceRoot":""}

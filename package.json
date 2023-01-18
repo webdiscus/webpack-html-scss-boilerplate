@@ -31,7 +31,7 @@
     "start": "webpack serve --mode=development",
     "watch": "webpack watch --mode=development",
     "build": "webpack --mode=production --progress",
-    "docs": "webpack --mode=production --env docs=true",
+    "docs": "npm run build && cp -R ./dist/* ./docs",
     "preview": "npm run build && http-server dist --port 4321 -o",
     "test": "echo 'No test specified' && exit 1"
   },
