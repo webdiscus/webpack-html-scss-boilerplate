@@ -31,18 +31,19 @@ npm run preview
 
 To build static pages is used the powerful [html-bundler-webpack-plugin](https://github.com/webdiscus/html-bundler-webpack-plugin).
 
-Add the new HTML page in Webpack `entry`:
+Add the new HTML page in the `entry` option:
 ```js
+const HtmlBundlerPlugin = require('html-bundler-webpack-plugin');
 module.exports = {
-  output: {
-    path: path.join(__dirname, 'dist/'),
-  },
-  
-  entry: {
-    // define HTML files here
-    'index': './src/views/home/index.html',  // output dist/index.html
-    'route/to/page': './src/views/home/index.html',  // output dist/route/to/page.html
-  },
+  plugins: [
+    new HtmlBundlerPlugin({
+      entry: {
+        // define HTML files here
+        'index': './src/views/home/index.html',  // output dist/index.html
+        'route/to/page': './src/views/page/index.html',  // output dist/route/to/page.html
+      },
+    }),
+  ],
   // ...
 };
 ```
@@ -77,6 +78,11 @@ const HtmlBundlerPlugin = require('html-bundler-webpack-plugin');
 module.exports = {
   plugins: [
     new HtmlBundlerPlugin({
+      entry: {
+        // define HTML files here
+        'index': './src/views/home/index.html',  // output dist/index.html
+        'route/to/page': './src/views/page/index.html',  // output dist/route/to/page.html
+      },
       js: {
         // output filename of extracted JS from source script loaded in HTML via `<script>` tag
         filename: 'assets/js/[name].[contenthash:8].js', // output into dist/assets/js/ directory
@@ -93,7 +99,6 @@ module.exports = {
 
 To extract images form HTML into separate files add the simple rule to Webpack config:
 ```js
-const HtmlBundlerPlugin = require('html-bundler-webpack-plugin');
 module.exports = {
   module: {
     rules: [
@@ -110,9 +115,8 @@ module.exports = {
 };
 ```
 
-To extract images into separate files and `inline images` add the advanced rule to Webpack config:
+To extract images into separate files or `inline images` add the advanced rule to Webpack config:
 ```js
-const HtmlBundlerPlugin = require('html-bundler-webpack-plugin');
 module.exports = {
   module: {
     rules: [

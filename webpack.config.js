@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlBundlerPlugin = require('html-bundler-webpack-plugin');
+const Nunjucks = require('nunjucks');
 
 module.exports = (env, argv) => {
   const isDev = argv.mode === 'development';
@@ -10,8 +11,6 @@ module.exports = (env, argv) => {
 
     output: {
       path: path.join(__dirname, 'dist'),
-      publicPath: 'auto',
-      clean: true,
     },
 
     resolve: {
@@ -25,18 +24,25 @@ module.exports = (env, argv) => {
       },
     },
 
-    entry: {
-      // Define HTML files here:
-      404: './src/views/404/index.html', // => dist/404.html
-      index: 'src/views/home/index.html', // => dist/index.html
-      demo: 'src/views/demo/index.html', // => dist/demo.html
-      about: 'src/views/about/index.html', // => dist/about.html
-    },
-
     plugins: [
       // enable processing of Pug files from entry
       new HtmlBundlerPlugin({
-        //verbose: isDev, // output information about the process to console
+        verbose: isDev, // output information about the process to console
+
+        entry: {
+          // define HTML templates here
+          index: 'src/views/pages/home/index.html', // => dist/index.html
+          demo: {
+            import: 'src/views/pages/demo/index.html', // => dist/demo.html
+            data: {
+              // pass data into template
+              myVar: 'The string passed as the `myVar` variable from Webpack configuration.',
+            },
+          },
+          about: 'src/views/pages/about/index.html', // => dist/about.html
+          404: './src/views/pages/404/index.html', // => dist/404.html
+        },
+
         js: {
           // output filename of extracted JS from source script loaded in HTML via `<script>` tag
           filename: 'assets/js/[name].[contenthash:8].js',
@@ -53,7 +59,11 @@ module.exports = (env, argv) => {
         // enable processing of HTML files from entry
         {
           test: /\.html$/,
-          loader: HtmlBundlerPlugin.loader, // HTML loader
+          loader: HtmlBundlerPlugin.loader, // HTML template loader
+          options: {
+            // render template with page-specific variables defined in entry
+            preprocessor: (content, { data }) => Nunjucks.renderString(content, data),
+          },
         },
 
         // styles
@@ -106,6 +116,8 @@ module.exports = (env, argv) => {
       static: {
         directory: path.join(__dirname, './dist'),
       },
+
+      open: true,
 
       //open: true,
       compress: true,

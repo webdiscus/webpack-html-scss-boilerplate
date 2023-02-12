@@ -1,5 +1,5 @@
 @use '@styles/main.scss';
-@use '@styles/abstracts/variables' as var;
+@use '@styles/abstracts/_variables.scss' as var;
 
 h1 {
   color: orangered;
