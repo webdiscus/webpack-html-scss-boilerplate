@@ -2,19 +2,24 @@ const path = require('path');
 const HtmlBundlerPlugin = require('html-bundler-webpack-plugin');
 const Nunjucks = require('nunjucks');
 
+Nunjucks.configure(process.cwd(), {
+  noCache: true, // enable watching of template changes in serv/watch mode
+});
+
 module.exports = (env, argv) => {
   const isDev = argv.mode === 'development';
 
   const config = {
     mode: isDev ? 'development' : 'production',
     devtool: isDev ? 'inline-source-map' : 'source-map',
+    stats: 'minimal',
 
     output: {
       path: path.join(__dirname, 'dist'),
     },
 
     resolve: {
-      // aliases used in sources
+      // use aliases used in sources instead of relative paths like ../../
       alias: {
         '@views': path.join(__dirname, 'src/views/'),
         '@images': path.join(__dirname, 'src/assets/images/'),
@@ -25,9 +30,8 @@ module.exports = (env, argv) => {
     },
 
     plugins: [
-      // enable processing of Pug files from entry
       new HtmlBundlerPlugin({
-        verbose: isDev, // output information about the process to console
+        verbose: 'auto', // output information about the process to console in development mode only
 
         entry: {
           // define HTML templates here
@@ -47,46 +51,41 @@ module.exports = (env, argv) => {
           // output filename of extracted JS from source script loaded in HTML via `<script>` tag
           filename: 'assets/js/[name].[contenthash:8].js',
         },
+
         css: {
           // output filename of extracted CSS from source style loaded in HTML via `<link>` tag
           filename: 'assets/css/[name].[contenthash:8].css',
+        },
+
+        // you can define all loader options here to avoid explicitly defining the template loader in module rules
+        loaderOptions: {
+          // render template with page-specific variables defined in entry
+          preprocessor: (content, { data }) => Nunjucks.renderString(content, data),
         },
       }),
     ],
 
     module: {
       rules: [
-        // enable processing of HTML files from entry
-        {
-          test: /\.html$/,
-          loader: HtmlBundlerPlugin.loader, // HTML template loader
-          options: {
-            // render template with page-specific variables defined in entry
-            preprocessor: (content, { data }) => Nunjucks.renderString(content, data),
-          },
-        },
-
         // styles
         {
           test: /\.(css|sass|scss)$/,
           use: ['css-loader', 'sass-loader'],
         },
 
-        // fonts
+        // fonts (load from `fonts` or `node_modules` directory only)
         {
-          test: /\.(woff(2)?|ttf|otf|eot|svg)$/,
+          test: /[\\/]fonts|node_modules[\\/].+(woff(2)?|ttf|otf|eot|svg)$/,
           type: 'asset/resource',
-          include: /fonts|node_modules/, // load fonts from `fonts` or `node_modules` directory only
           generator: {
             // group fonts by name
             filename: (pathData) => `assets/fonts/${path.basename(path.dirname(pathData.filename))}/[name][ext][query]`,
           },
         },
 
-        // images
+        // images (load from `images` directory only)
         {
-          test: /\.(png|jpe?g|svg|webp|ico)$/i,
-          include: /images/, // load images from `images` directory only
+          test: /[\\/]images[\\/].+(png|jpe?g|svg|webp|ico)$/,
           oneOf: [
             // inline image using `?inline` query
             {
@@ -109,18 +108,20 @@ module.exports = (env, argv) => {
         },
       ],
     },
+
+    performance: {
+      hints: false, // don't show the size limit warning when a bundle is bigger than 250 KB
+    },
   };
 
   if (isDev) {
     config.devServer = {
+      //open: true,
+      compress: true,
+
       static: {
         directory: path.join(__dirname, './dist'),
       },
-
-      open: true,
-
-      //open: true,
-      compress: true,
 
       // enable HMR
       watchFiles: {

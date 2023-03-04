@@ -19,12 +19,7 @@
       <a class="header-left" href="index.html">
         <img class="app-logo" src="@images/app-logo.svg"><span>App demo</span>
       </a>
-      <div class="header-middle">
-        <a href="index.html">Home</a>
-        <a href="demo.html">Demo</a>
-        <a href="about.html">About</a>
-        <a href="404.html">404</a>
-      </div>
+      {% include "src/views/partials/navigation.html" %}
       <div class="header-right"></div>
     </div>
   </div>
@@ -41,9 +36,7 @@
 
   <!-- Footer -->
   <div class="footer-container">
-    <div class="footer-content">
-      Copyleft <span class="copyleft"></span> 2023 <a href="https://github.com/webdiscus">@webdiscus</a>
-    </div>
+    {% include "src/views/partials/footer.html" %}
   </div>
 
   <!-- block for specific page scripts -->

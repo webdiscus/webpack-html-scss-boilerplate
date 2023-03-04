@@ -59,9 +59,9 @@ Add source files of styles, scripts, images directly in HTML:
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- load source file of style -->
+  <!-- load source styles here -->
   <link href="./style.scss" rel="stylesheet">
-  <!-- load source file of script -->
+  <!-- load source scripts here and/or in body -->
   <script src="./main.js" defer="defer"></script>
 </head>
 <body>
@@ -103,9 +103,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|svg|webp|ico)$/i,
-        // output filename of extracted image
+        test: /[\\/]images[\\/].+(png|jpe?g|svg|webp|ico)$/i, // load images from `images` directory only
         generator: {
+          // output filename of extracted image
           filename: 'assets/img/[name].[hash:8][ext]', // output into dist/assets/img/ directory
         },
       },
@@ -121,8 +121,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|svg|webp|ico)$/i,
-        include: /images/, // load images from `images` directory only
+        test: /[\\/]images[\\/].+(png|jpe?g|svg|webp|ico)$/i, // load images from `images` directory only
         oneOf: [
           // inline image using `?inline` query
           {
@@ -137,8 +136,8 @@ module.exports = {
                 maxSize: 1024,
               },
             },
-            // output filename of extracted image
             generator: {
+              // output filename of extracted image
               filename: 'assets/img/[name].[hash:8][ext]', // output into dist/assets/img/ directory
             },
           },
@@ -152,7 +151,7 @@ module.exports = {
 
 > **Note**
 >
-> Use the `include: /images/` option when you have `SVG` files for fonts and images to restrict this rule to images only.
+> Add the `[\\/]images[\\/]` to the `test` RegExp when you have `SVG` files for fonts and images to restrict this rule to images only.
 
 
 ## Also See
@@ -163,10 +162,8 @@ module.exports = {
 
 ## License
 
-[ISC](https://github.com/webdiscus/pug-loader/blob/master/LICENSE)
+[ISC](https://github.com/webdiscus/html-bundler-webpack-plugin/blob/master/LICENSE)
 
 [ansis]: https://github.com/webdiscus/ansis
 [pug-plugin]: https://github.com/webdiscus/pug-plugin
 [pug-loader]: https://github.com/webdiscus/pug-loader
-[pug-filter-highlight]: https://webdiscus.github.io/pug-loader/pug-filters/highlight.html
-[pug-filter-markdown]: https://webdiscus.github.io/pug-loader/pug-filters/markdown.html
