@@ -78,8 +78,10 @@ const HtmlBundlerPlugin = require('html-bundler-webpack-plugin');
 module.exports = {
   plugins: [
     new HtmlBundlerPlugin({
+      // path to directory with templates
+      entry: 'src/views/home/',
+      // or define templates manually
       entry: {
-        // define HTML files here
         'index': './src/views/home/index.html',  // output dist/index.html
         'route/to/page': './src/views/page/index.html',  // output dist/route/to/page.html
       },

@@ -1,5 +1,9 @@
 # Change log
 
+## 1.3.0 (2023-03-29)
+- feat: simplify config of loader using the preconfigured template engine: `preprocessor: 'nunjucks'`
+- chore: update the html-bundler-webpack-plugin to the latest version
+
 ## 1.2.1 (2023-03-04)
 - chore: update Webpack config
 - chore: update dev dependencies

@@ -1,10 +1,6 @@
 const path = require('path');
 const HtmlBundlerPlugin = require('html-bundler-webpack-plugin');
-const Nunjucks = require('nunjucks');
-
-Nunjucks.configure(process.cwd(), {
-  noCache: true, // enable watching of template changes in serv/watch mode
-});
+//const Nunjucks = require('nunjucks'); // used when the preprocessor is a function
 
 module.exports = (env, argv) => {
   const isDev = argv.mode === 'development';
@@ -31,7 +27,7 @@ module.exports = (env, argv) => {
 
     plugins: [
       new HtmlBundlerPlugin({
-        verbose: 'auto', // output information about the process to console in development mode only
+        // verbose: 'auto', // output information about the process to console in development mode only
 
         entry: {
           // define HTML templates here
@@ -59,8 +55,10 @@ module.exports = (env, argv) => {
 
         // you can define all loader options here to avoid explicitly defining the template loader in module rules
         loaderOptions: {
-          // render template with page-specific variables defined in entry
-          preprocessor: (content, { data }) => Nunjucks.renderString(content, data),
+          // render template with the Nunjucks template engine
+          preprocessor: 'nunjucks',
+          // or you can use any template engine as a function like following:
+          //preprocessor: (content, { data }) => Nunjucks.renderString(content, data),
         },
       }),
     ],
