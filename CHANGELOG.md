@@ -1,5 +1,10 @@
 # Change log
 
+## 1.4.0 (2023-07-29)
+- feat: upgrade the html-bundler-webpack-plugin to v2.4.0
+- chore: update Webpack config
+- chore: update dev dependencies
+
 ## 1.3.0 (2023-03-29)
 - feat: simplify config of loader using the preconfigured template engine: `preprocessor: 'nunjucks'`
 - chore: update the html-bundler-webpack-plugin to the latest version
@@ -17,6 +22,5 @@
 - refactor: replace static html files with Nunjucks templates
 - chore: update the html-bundler-webpack-plugin to the latest version
 
-git commit -m 'feat: add Nunjucks template engine for multiple pages'
 ## 1.0.0 (2023-01-18)
 First release
