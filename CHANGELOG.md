@@ -1,5 +1,9 @@
 # Change log
 
+## 1.4.1 (2023-12-30)
+- chore: update webpack config
+- chore: update dev dependencies
+
 ## 1.4.0 (2023-07-29)
 - feat: upgrade the html-bundler-webpack-plugin to v2.4.0
 - chore: update Webpack config

@@ -1,6 +1,5 @@
 const path = require('path');
 const HtmlBundlerPlugin = require('html-bundler-webpack-plugin');
-//const Nunjucks = require('nunjucks'); // used when the preprocessor is a function
 
 const isProd = !process.argv.find((str) => str.includes('development'));
 
@@ -11,6 +10,7 @@ module.exports = {
 
   output: {
     path: path.join(__dirname, 'dist'),
+    clean: true,
   },
 
   resolve: {
@@ -30,56 +30,65 @@ module.exports = {
 
       entry: {
         // define HTML templates here
+
+        // define the simple template
         index: 'src/views/pages/home/index.html', // => dist/index.html
+        // define the template with passed external variables
         demo: {
           import: 'src/views/pages/demo/index.html', // => dist/demo.html
+          // pass data into template as an object
           data: {
-            // pass data into template
             myVar: 'The string passed as the `myVar` variable from Webpack configuration.',
           },
+          // -OR- define here a relative path to the JS/JSON file with data used in the template
+          // data: './src/data/demo.json'
         },
         about: 'src/views/pages/about/index.html', // => dist/about.html
         404: './src/views/pages/404/index.html', // => dist/404.html
       },
 
       js: {
-        // output filename of extracted JS from source script loaded in HTML via `<script>` tag
+        // output filename of compiled JavaScript, used if `inline` option is false (defaults)
         filename: 'assets/js/[name].[contenthash:8].js',
-        // inline: true; // inline compiled JS into HTML
+        // inline: true; // inlines JS into HTML
       },
 
       css: {
-        // output filename of extracted CSS from source style loaded in HTML via `<link>` tag
+        // output filename of extracted CSS, used if `inline` option is false (defaults)
         filename: 'assets/css/[name].[contenthash:8].css',
-        // inline: true; // inline compiled CSS into HTML
+        // inline: true; // inlines CSS into HTML
       },
 
-      // render templates with the Nunjucks template engine
-      preprocessor: 'nunjucks',
-      // or you can use any template engine as a function like the following:
-      //preprocessor: (content, { data }) => Nunjucks.renderString(content, data),
+      // supports template engines: eta, ejs, handlebars, nunjucks, twig
+      preprocessor: 'nunjucks', // use the Nunjucks template engine
     }),
   ],
 
   module: {
     rules: [
-      // styles
+      // load styles
       {
         test: /\.(css|sass|scss)$/,
         use: ['css-loader', 'sass-loader'],
       },
 
-      // fonts (load from `fonts` or `node_modules` directory only)
+      // load fonts from `fonts` or `node_modules` directory only
       {
         test: /[\\/]fonts|node_modules[\\/].+(woff(2)?|ttf|otf|eot|svg)$/,
         type: 'asset/resource',
         generator: {
-          // group fonts by name
-          filename: (pathData) => `assets/fonts/${path.basename(path.dirname(pathData.filename))}/[name][ext][query]`,
+          // keep original directory structure
+          filename: ({ filename }) => {
+            const srcPath = 'src/assets/fonts';
+            const regExp = new RegExp(`[\\\\/]?(?:${path.normalize(srcPath)}|node_modules)[\\\\/](.+?)$`);
+            const assetPath = path.dirname(regExp.exec(filename)[1].replace('@', '').replace(/\\/g, '/'));
+
+            return `assets/fonts/${assetPath}/[name][ext][query]`;
+          },
         },
       },
 
-      // images (load from `images` directory only)
+      // load images from `images` directory only
       {
         test: /[\\/]images[\\/].+(png|jpe?g|svg|webp|ico)$/,
         oneOf: [
@@ -106,18 +115,19 @@ module.exports = {
   },
 
   performance: {
-    hints: false, // don't show the size limit warning when a bundle is bigger than 250 KB
+    // don't show the size limit warning when a bundle is bigger than 250 KB
+    hints: false,
   },
 
   devServer: {
-    //open: true, // open browser
+    // open browser
+    open: true,
     compress: true,
-
     static: {
       directory: path.join(__dirname, './dist'),
     },
 
-    // enable HMR
+    // enable live reload
     watchFiles: {
       paths: ['src/**/*.*'],
       options: {
